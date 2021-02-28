@@ -4,11 +4,23 @@ Order of a PDE:
 Degree of a PDE:
     The degree of the highest order derivative involving in the PDE is called the degree of PDE.
 
+Notation:
+    p = first order partial derivative of z wrt x
+    q = first order partial derivative of z wrt y
+    r = second order partial derivative of z wrt only x
+    s = second order partial derivative of z wrt both x and y
+    t = second order partial derivative of z wrt only y
+
 Solving strategy for any PDE:
     1. Eqns solvable by direct integration
     2. PDE of order 1 (different from Linear PDE. very important difference)
         2.1 Linear Eqn/ Semi Linear Eqn/ Quasi-Linear Eqn having two independent variables
-            Form a Lagranges Auxiliary Eqn (LAE) from the given PDE.
+            Linear Eqn: P(x, y)p + Q(x, y)q = R(x, y) + zS(x, y)
+            Semi Linear Eqn: P(x, y)p + Q(x, y)q = R(x, y, z)
+            Quasi Linear Eqn: P(x, y, z)p + Q(x, y, z)q = R(x, y, z)
+            
+            All the above forms of eqns can be solved by forming Lagranges Auxiliary Eqn (LAE) which is as follows.
+                    dx/P = dy/Q = dz/R
             Methods to solve LAE:
                 Method 1:
                     Solvable by variable seperation.
@@ -22,7 +34,7 @@ Solving strategy for any PDE:
     3. Linear PDE with constant coefficients:
         3.1 Homogeneous Linear PDE with constant coefficients
             3.1.1 Finding Complementary Function (CF)
-                Form a polynomical interms of D, D' where D = partial derivate wrt x and D' = partial derivative wrt y
+                Form a polynomial interms of D, D' where D = partial derivate wrt x and D' = partial derivative wrt y
                 Now form Auxiliary Eqn (AE) by putting D = m and D' = 1.
                 Find roots of the AE.
                 Let the roots be m1, m1, m2
@@ -33,47 +45,80 @@ Solving strategy for any PDE:
                     3. Corresponding to a non repeated factor of D' on RHS, we place Φ(x) in the CF.
                     4. Corresponding to a repeated factor of D' on RHS like D'^2, we place Φ1(x)+yΦ2(x) in the CF.
             3.1.2 Finding Particular Integral (PI)
-
+                consider the eqn F(D, D')z = f(x, y) and
+                let the degree of F(D, D') be n
+                case 1: if f(x, y) = Φ(ax+by)
+                    case a: if F(a, b) ≠ 0
+                        then PI = (1/F(a, b)) * ∫∫∫∫.........∫Φ(v)dvdv.........dv where v = ax+by
+                        Note that the number of integrations in the above formula is n which is the degree of the F(D, D')
+                    case b: if F(a, b) = 0
+                        let F(a, b) = (bD-aD')^m
+                        then PI = [(x^m)/((b^m)m!)]Φ(ax+by)
+                case 2: if f(x, y) is polynomial. let the highest term be (x^m*y^n)
+                    expand 1/F(D, D') using binomial expansion in the following way:
+                    case a: if n < m
+                        expand in powers of D'/D
+                    case b: if n > m
+                        expand in powers of D/D'
+                case 3: general method to find PI
+                    After factorizing F(D, D') into the terms (D-mD'), we use following formula:
+                        Φ(x, y)/(D-mD') = ∫Φ(x, a-mx)dx where a = y+mx
+                        After integration, replace a with y+mx
+                        Repeat the same step for all the factors of F(D, D') until no more are left
         3.2 Non Homogeneous Linear PDE with constant coefficients
             3.2.1 Finding Complementary Function (CF)
-                Here we follow almost same strategy as above
+                Here we follow a similar strategy as above
                 For every factor (D-mD'-K), we put e^(Kx)Φ(y+mx)
                 If the roots are repeating:
                     For example (D-mD'-K)(D-mD'-K)
                     we put e^(Kx)[Φ1(y+mx) + Φ2(y+mx)]
                 -> Special cases:
-                    Same as above
-            3.2.2 When Linear factors are not possible
+                    Same as in the case of finding CF for Homogeneous Linear PDE with constant coefficients
+            3.2.2 Finding Particular Integral (PI)
+                consider the eqn F(D, D')z = f(x, y) and
+                let the degree of F(D, D') be n
+                case 1: f(x, y) = e^(ax+by) and F(a, b) ≠ 0
+                    PI = (e^(ax+by))/F(a, b)
+                case 2: if F(a, b) = 0
+                    follow the same strategy as in the case of finding PI in Homogeneous Linear PDE
+                case 3: if f(x, y) = sin(ax+by) or cos(ax+by)
+                    put D^2 = -a^2 and D'^2 = -b^2 and DD' = -ab
+                case 4: if f(x, y) = (x^m*y^n)
+                    expand [F(D, D')]^(-1) in the powers of D, D'.
+                    Follow the same strategy as followed incase of finding PI in Homogeneous Linear PDE
+                case 5: f(x, y) = [e^(ax+by)]*V(x, y)
+                    PI = [e^(ax+by)][(1/F(D+a, D'+b))V(x, y)]
+            3.2.3 When Linear factors are not possible
                 Here we put a trial soln and hope it works.
                 Usually try with Ae^(hx+ky).
-            3.2.3 Finding Particular Integral (PI)
-        3.3 Eqns reducible to Linear Form with constant coefficients by using suitable substitutions
+    4 Linear PDE with variable coefficients
+        4.1 Eqns reducible to Linear Form with constant coefficients by using suitable substitutions
             Here sir only told eqns which can be solved using cauchy substitutions
             i.e. putting x = e^X and y = e^Y.
-        3.4 Second Order PDEs with variable coefficients
+        4.2 Second Order PDE with variable coefficients
             Solving Methods:
             Method 1: Direct integration
                 Keep integrating until all the no more derivatives are present
             Method 2: Reducing to Canonical Form by transforming independent variables
-            Eqns of the Form Rr + Ss + Tt + f(x, y, z, p, q) = 0
-                Here we solve these type of eqns by reducing the given eqn into canonical form by changing independent variables from x, y to u, v
-                Here R(λ^2) + Sλ + T = 0 is Characteristic Eqn (CE).
-                Let the roots of CE are λ1, λ2
-                Case 1: if the roots are real and distinct
-                    Then new independent variables are u, v such that
-                    u, v are the solutions are the eqns
-                            dy/dx + λ1 = 0 and
-                            dy/dx + λ2 = 0 respectively
-                Case 2: if the roots are real and equal
-                    Then u is the soln of  dy/dx + λ1 = 0
-                    Now for choosing v, we can select any function such that Jacobian((u, v)/(x, y)) ≠ 0.
-                    Follow the below steps to choose v in a better way:
-                        1.
-                Case 3: if the roots are imaginary
-                    Here choose u, v same as in case 1.
-                    Say u = α + iβ
-                    Therefore v = α - iβ
-                    instead of choosing u, v as new independent variables, here we choose α, β as new independent variables.
-                After choosing independent variables, convert the given eqn into new independent varibles.
-                The eqn will be changed to canonical form which can be solved using Direct Integration.
-    2. Non Linear PDE
+        4.3 Eqns of the Form Rr + Ss + Tt + f(x, y, z, p, q) = 0
+            Here we solve these type of eqns by reducing the given eqn into canonical form by changing independent variables from x, y to u, v
+            Here R(λ^2) + Sλ + T = 0 is Characteristic Eqn (CE).
+            Let the roots of CE are λ1, λ2
+            Case 1: if the roots are real and distinct
+                Then new independent variables are u, v such that
+                u, v are the solutions are the eqns
+                        dy/dx + λ1 = 0 and
+                        dy/dx + λ2 = 0 respectively
+            Case 2: if the roots are real and equal
+                Then u is the soln of  dy/dx + λ1 = 0
+                Now for choosing v, we can select any function such that Jacobian((u, v)/(x, y)) ≠ 0.
+                Follow the below steps to choose v in a better way:
+                    1.
+            Case 3: if the roots are imaginary
+                Here choose u, v same as in case 1.
+                Say u = α + iβ
+                Therefore v = α - iβ
+                instead of choosing u, v as new independent variables, here we choose α, β as new independent variables.
+            After choosing independent variables, convert the given eqn into new independent varibles.
+            The eqn will be changed to canonical form which can be solved using Direct Integration.
+    5. Non Linear PDE
